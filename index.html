@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="main-outer">
+        <div class="inner-wrapper">
+            <div class="top-title-wrapper">
+                <h1>Questionnaire</h1>
+            </div>
+            <hr>
+<!-- controller -->
+            <div class="controller-wrapper">
+                <div class="controller-item">
+                    <div class="item-inner" style="padding: 0%;">
+                      <select name="" id="level-select" class="form-control">
+                        <option value="1">Easy</option>
+                        <option value="2">Medium</option>
+                        <option value="3">Expert</option>
+                      </select>  
+                    </div>
+                </div>
+                <div class="controller-item">
+                    <div class="item-inner">
+                        <span>Time: 10:20</span>
+                    </div>
+                </div>
+                <div class="controller-item">
+                    <div class="item-inner">
+                        <span style="white-space: nowrap;"> Result : (C:10) | (W:10) | (S :5)</span>
+                    </div>
+                </div>
+                <div class="controller-item">
+                    <div class="item-inner" style="padding: 0;">
+                    <button onclick="start()" class="btn btn-primary" style="width: 100%;">Start</button>
+                    </div>
+                </div>
+              
+
+            </div>
+
+<!-- playground -->
+            <div class="playground">
+                <h2 class="question">
+                    <span class="f-number">10</span>&nbsp;
+                    <span class="operator">+</span>&nbsp;
+                    <span class="l-number">9</span>&nbsp;
+                    =&nbsp;
+                    <span class="answer">?</span>&nbsp;
+                </h2>
+                <input type="number" placeholder="Answer here" class="form-control" style="width:200px;">
+            </div>
+            <div class="button-bar">
+                <button class="btn btn-outline-dark">Skip</button>
+                <button class="btn btn-primary">submit</button>
+            </div>
+
+
+
+        </div>
+        
+    </div>
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</body>
+</html>
