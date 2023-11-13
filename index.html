@@ -27,7 +27,7 @@
                 </div>
                 <div class="controller-item">
                     <div class="item-inner">
-                        <span>Time: 10:20</span>
+                        <span>Time:<span id="min">00</span>:<span id="sec">00</span></span>
                     </div>
                 </div>
                 <div class="controller-item">
@@ -47,9 +47,9 @@
 <!-- playground -->
             <div class="playground">
                 <h2 class="question">
-                    <span class="f-number">10</span>&nbsp;
-                    <span class="operator">+</span>&nbsp;
-                    <span class="l-number">9</span>&nbsp;
+                    <span id="f-number">?</span>&nbsp;
+                    <span id="op">?</span>&nbsp;
+                    <span id="l-number">?</span>&nbsp;
                     =&nbsp;
                     <span class="answer">?</span>&nbsp;
                 </h2>
@@ -57,7 +57,7 @@
             </div>
             <div class="button-bar">
                 <button class="btn btn-outline-dark">Skip</button>
-                <button class="btn btn-primary">submit</button>
+                <button class="btn btn-primary" onclick="submitData()">submit</button>
             </div>
 
 
