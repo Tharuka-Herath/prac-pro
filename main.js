@@ -6,6 +6,10 @@ let operators = ['+','-','*','/','%'];
 let fNumber;
 let lNumber;
 let selectedOperator;
+let answerData=[];
+let correctAnswer;
+let insertedAnswer;
+let qNumber=0;
 
 //-----------------------------------
 const selectElement = document.getElementById("level-select");
@@ -14,6 +18,8 @@ const minElement = document.getElementById("min");
 const fNumElement = document.getElementById("f-number");
 const lNumElement = document.getElementById("l-number");
 const opElement = document.getElementById("op");
+const answerElement = document.getElementById("answer");
+const qNumberElement = document.getElementById("qNumber");
 
 
 
@@ -31,39 +37,51 @@ const start =()=>{
 
 
 const manageTime= ()=>{
-    min= 0;
-    sec =0;
 
+    qNumber++;
 
-    secElement.textContent='00';
-    minElement.textContent = '00';
+    if(qNumber>10){
+        //finalize
+    }else{
+
+        qNumberElement.textContent=qNumber;
+        min= 0;
+        sec =0;
     
-    generateQuestion(level);
-
-    clearInterval(interval)
-    interval=setInterval(()=>{
-       sec++;
-       if(sec<10){
-        secElement.textContent = '0'+sec;
-       }else{
-        secElement.textContent = sec+'';
-       }
-       if(sec==60){
-        sec=0;
-        min++;
-        minElement.textContent = '0'+min;
-       }
+    
+        secElement.textContent='00';
+        minElement.textContent = '00';
+        
+        generateQuestion(level);
+    
+        clearInterval(interval)
+        interval=setInterval(()=>{
+           sec++;
+           if(sec<10){
+            secElement.textContent = '0'+sec;
+           }else{
+            secElement.textContent = sec+'';
+           }
+           if(sec==60){
+            sec=0;
+            min++;
+            minElement.textContent = '0'+min;
+           }
+             
          
-     
-       if(min==3){
-            min=0
+           if(min==3){
+                min=0
+    
+                
+           }
+    
+    
+    
+        },1000)
 
-            
-       }
+    }
 
 
-
-    },1000)
 }
 
 
@@ -91,12 +109,83 @@ const generateQuestion=(selectedLevel)=>{
 }
 
 const submitData = ()=>{
-    if (fNumber && lNumber && operators) {
-        //
+    insertedAnswer = parseInt(answerElement.value)
+    
+
+    if (fNumber && lNumber && operators && insertedAnswer) {
+        switch(selectedOperator){
+            case '+':correctAnswer=fNumber+lNumber; break;
+            case '-': correctAnswer=fNumber-lNumber;break;
+            case '*': correctAnswer=fNumber*lNumber;break;
+            case '/': correctAnswer=fNumber/lNumber;break;
+            case '%': correctAnswer=fNumber%lNumber;break;
+            default: alert('something went wrong!');return;
+        }
+
+        if(insertedAnswer==correctAnswer){
+            let obj = {
+                'q NUmber':1,
+                'Time': min+':'+sec,
+                'correctAnswer':correctAnswer,
+                'userAnswer':insertedAnswer,
+                'operator':selectedOperator,
+                'First number':fNumber,
+                'last Number':lNumber,
+                'isCorrect':true,
+                'isSkipped':false
+
+            }
+            answerData.push(obj)
+        }else{
+             let obj = {
+                'q NUmber':1,
+                'Time': min+':'+sec,
+                'correctAnswer':correctAnswer,
+                'userAnswer':insertedAnswer,
+                'operator':selectedOperator,
+                'First number':fNumber,
+                'last Number':lNumber,
+                'isCorrect':false,
+                'isSkipped':false
+
+            }
+            answerData.push(obj)
+        }
+        answerElement.value=' '
+        manageTime();
+        console.log(answerData)
+
+
+
     }else{
         alert('try again')
     }
 }
+
+
+const skipQuizz=()=>{
+    let obj = {
+        'q NUmber':1,
+        'Time': min+':'+sec,
+        'correctAnswer':correctAnswer,
+        'userAnswer':insertedAnswer,
+        'operator':selectedOperator,
+        'First number':fNumber,
+        'last Number':lNumber,
+        'isCorrect':false,
+        'isSkipped':true
+    }
+    answerData.push(obj)
+    manageTime();
+}
+
+const setStatisticsForLabels = ()=>{
+    for(let x=0;answerData.length<x;x++){
+        let temp = answerData[x];
+        
+    }
+}
+
 
 
 

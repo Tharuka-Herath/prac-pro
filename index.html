@@ -32,6 +32,11 @@
                 </div>
                 <div class="controller-item">
                     <div class="item-inner">
+                        <span>Q : <span id="qNumber">0</span>/10</span>
+                    </div>
+                </div>
+                <div class="controller-item">
+                    <div class="item-inner">
                         <span style="white-space: nowrap;"> Result : (C:10) | (W:10) | (S :5)</span>
                     </div>
                 </div>
@@ -53,10 +58,10 @@
                     =&nbsp;
                     <span class="answer">?</span>&nbsp;
                 </h2>
-                <input type="number" placeholder="Answer here" class="form-control" style="width:200px;">
+                <input id='answer' type="number" placeholder="Answer here" class="form-control" style="width:200px;">
             </div>
             <div class="button-bar">
-                <button class="btn btn-outline-dark">Skip</button>
+                <button class="btn btn-outline-dark" onclick="skipQuizz()" >Skip</button>
                 <button class="btn btn-primary" onclick="submitData()">submit</button>
             </div>
 
