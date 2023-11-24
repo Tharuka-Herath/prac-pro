@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="main-outer">
-        <div class="inner-wrapper">
+        <div class="inner-wrapper container">
             <div class="top-title-wrapper">
                 <h1>Questionnaire</h1>
             </div>
@@ -37,12 +37,12 @@
                 </div>
                 <div class="controller-item">
                     <div class="item-inner">
-                        <span style="white-space: nowrap;"> Result : (C:10) | (W:10) | (S :5)</span>
+                        <span style="white-space: nowrap;"> Result : (C:<span id="c">0</span>) | (W:<span id="w">0</span>) | (S :<span id="s">0</span>)</span>
                     </div>
                 </div>
                 <div class="controller-item">
                     <div class="item-inner" style="padding: 0;">
-                    <button onclick="start()" class="btn btn-primary" style="width: 100%;">Start</button>
+                    <button onclick="start()" class="btn btn-primary" style="width: 100%;" id="btn-start">Start</button>
                     </div>
                 </div>
               
@@ -61,12 +61,33 @@
                 <input id='answer' type="number" placeholder="Answer here" class="form-control" style="width:200px;">
             </div>
             <div class="button-bar">
+                <button class="btn btn-outline-danger" onclick="reset()" >Reset</button>
                 <button class="btn btn-outline-dark" onclick="skipQuizz()" >Skip</button>
                 <button class="btn btn-primary" onclick="submitData()">submit</button>
             </div>
 
 
 
+        </div>
+
+        <div class="container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>First Number</th>
+                        <th>First Number</th>
+                        <th>Operator</th>
+                        <th>correctAnswer</th>
+                        <th>userAnswer</th>
+                        <th>Iscorrect</th>
+                        <th>Isskipped</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody id="answer-body">
+
+                </tbody>
+            </table>
         </div>
         
     </div>

@@ -1,7 +1,7 @@
 let level = 1;
 let sec=0;
 let min= 0 ;
-let interval = null;
+let timeInterval;
 let operators = ['+','-','*','/','%'];
 let fNumber;
 let lNumber;
@@ -20,6 +20,11 @@ const lNumElement = document.getElementById("l-number");
 const opElement = document.getElementById("op");
 const answerElement = document.getElementById("answer");
 const qNumberElement = document.getElementById("qNumber");
+const cElement = document.getElementById("c");
+const wElement = document.getElementById("w");
+const sElement = document.getElementById("s");
+const btnStartElement = document.getElementById("btn-start");
+const tbodyElement = document.getElementById("answer-body");
 
 
 
@@ -31,6 +36,7 @@ selectElement.addEventListener("change",function(){
 
 //-----------------------------------
 const start =()=>{
+    btnStartElement.disabled=true;
     manageTime();
 }
 
@@ -41,7 +47,8 @@ const manageTime= ()=>{
     qNumber++;
 
     if(qNumber>10){
-        //finalize
+        finalize();
+       return;
     }else{
 
         qNumberElement.textContent=qNumber;
@@ -54,8 +61,8 @@ const manageTime= ()=>{
         
         generateQuestion(level);
     
-        clearInterval(interval)
-        interval=setInterval(()=>{
+        clearInterval(timeInterval)
+        timeInterval=setInterval(()=>{
            sec++;
            if(sec<10){
             secElement.textContent = '0'+sec;
@@ -70,7 +77,8 @@ const manageTime= ()=>{
              
          
            if(min==3){
-                min=0
+                min=0;
+                skipQuizz();
     
                 
            }
@@ -124,13 +132,13 @@ const submitData = ()=>{
 
         if(insertedAnswer==correctAnswer){
             let obj = {
-                'q NUmber':1,
-                'Time': min+':'+sec,
+                'qNumber':1,
+                'time': min+':'+sec,
                 'correctAnswer':correctAnswer,
                 'userAnswer':insertedAnswer,
                 'operator':selectedOperator,
-                'First number':fNumber,
-                'last Number':lNumber,
+                'firstNumber':fNumber,
+                'lastNumber':lNumber,
                 'isCorrect':true,
                 'isSkipped':false
 
@@ -138,13 +146,13 @@ const submitData = ()=>{
             answerData.push(obj)
         }else{
              let obj = {
-                'q NUmber':1,
-                'Time': min+':'+sec,
+                'qNumber':1,
+                'time': min+':'+sec,
                 'correctAnswer':correctAnswer,
                 'userAnswer':insertedAnswer,
                 'operator':selectedOperator,
-                'First number':fNumber,
-                'last Number':lNumber,
+                'firstNumber':fNumber,
+                'lastNumber':lNumber,
                 'isCorrect':false,
                 'isSkipped':false
 
@@ -153,7 +161,7 @@ const submitData = ()=>{
         }
         answerElement.value=' '
         manageTime();
-        console.log(answerData)
+        setStatisticsForLabels();
 
 
 
@@ -164,26 +172,106 @@ const submitData = ()=>{
 
 
 const skipQuizz=()=>{
+    if(qNumber>10){
+        finalize();
+       return;
+    }
     let obj = {
-        'q NUmber':1,
-        'Time': min+':'+sec,
-        'correctAnswer':correctAnswer,
-        'userAnswer':insertedAnswer,
+        'qNumber':1,
+        'time': min+':'+sec,
+        'correctAnswer':'**',
+        'userAnswer':'**',
         'operator':selectedOperator,
-        'First number':fNumber,
-        'last Number':lNumber,
+        'firstNumber':fNumber,
+        'lastNumber':lNumber,
         'isCorrect':false,
         'isSkipped':true
     }
     answerData.push(obj)
     manageTime();
+    setStatisticsForLabels();
 }
 
 const setStatisticsForLabels = ()=>{
-    for(let x=0;answerData.length<x;x++){
+    let c=0;
+    let w=0;
+    let s=0;
+
+
+    for(let x=0;x<answerData.length;x++){
         let temp = answerData[x];
+        if (temp.isCorrect) {
+            c++;
+        }else{
+            w++;
+        }
+        if(temp.isSkipped){
+            s++;
+        }
         
     }
+
+cElement.textContent=c;
+wElement.textContent=w;
+sElement.textContent=s; 
+}
+
+const reset = ()=>{
+    btnStartElement.disabled=false;
+    qNumber=0;
+    qNumberElement.textContent=qNumber;
+    answerData.length=0;
+    setStatisticsForLabels();
+    clearInterval(timeInterval);
+    minElement.textContent = '00';
+    secElement.textContent='00';
+    fNumElement.textContent='?';
+    lNumElement.textContent='?';
+    opElement.textContent="?";
+
+    while(tbodyElement.firstChild){
+        tbodyElement.removeChild(tbodyElement.firstChild)
+    }
+}
+
+const finalize= ()=>{
+    answerData.forEach(data=>{
+        const row = document.createElement("tr");
+        const cell1 =document.createElement("td")
+        cell1.textContent = data.firstNumber;
+        row.appendChild(cell1)
+
+        const cell2 =document.createElement("td")
+        cell2.textContent= data.lastNumber;
+        row.appendChild(cell2)
+
+        const cell3 =document.createElement("td")
+        cell3.textContent = data.operator;
+        row.appendChild(cell3)
+
+        const cell4 =document.createElement("td")
+        cell4.textContent = data.correctAnswer;
+        row.appendChild(cell4)
+
+        const cell5 =document.createElement("td")
+        cell5.textContent = data.userAnswer;
+        row.appendChild(cell5)
+
+        const cell6 =document.createElement("td")
+        cell6.textContent = data.isCorrect;
+        row.appendChild(cell6)
+
+        const cell7 =document.createElement("td")
+        cell7.textContent = data.isSkipped;
+        row.appendChild(cell7)
+
+        const cell8 =document.createElement("td")
+        cell8.textContent = data.time;
+        row.appendChild(cell8)
+
+        tbodyElement.appendChild(row)
+
+    })
 }
 
 
